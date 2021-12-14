@@ -25,7 +25,7 @@ namespace TechJobsPersistent.Controllers
         {
             List<Employer> employers = context.Employers.ToList();
 
-            return View();
+            return View(employers);
         }
 
         public IActionResult Add()
@@ -40,27 +40,43 @@ namespace TechJobsPersistent.Controllers
         {
             if (ModelState.IsValid)
             {
-                Employer newEmployer = new Employer
+                string name = addEmployerViewModel.Name;
+                string location = addEmployerViewModel.Location;
+
+                List<Employer> existingItems =
+                    context.Employers
+                    .Where(e => e.Name == name)
+                    .Where(e => e.Location == location)
+                    .ToList();
+
+                if (existingItems.Count == 0)
                 {
-                    Name = addEmployerViewModel.Name,
-                    Location = addEmployerViewModel.Location,
-                };
+                    Employer newEmployer = new Employer
+                    {
+                        Name = name,
+                        Location = location,
+                    };
 
-                context.Employers.Add(newEmployer);
-                context.SaveChanges();
+                    context.Employers.Add(newEmployer);
+                    context.SaveChanges();
 
-                return Redirect("/Index");
+                    return Redirect("/Add");
+                }
+                
+                
             }
-            
-            
-            return View("Add",addEmployerViewModel);
+                        
+            return View("Add", addEmployerViewModel);
         }
 
         public IActionResult About(int id)
         {
-            Employer currentEmployer = context.Employers.Find(id);
-            
-            return View(currentEmployer);
+            List<Employer> employers = context.Employers
+                .Where(e => e.Id == id)
+                .ToList();
+
+
+            return View(employers);
         
         }
     }
