@@ -15,10 +15,10 @@
     
     
     <div class="form-group">
-        @foreach (var Skill in Model.Skills)
+        @foreach (var skill in Model.Skills)
         {
-            <input type="checkbox" name="selectedSkills" value=@Skill.Value />
-            <label>@Skill.Text</label>
+            <input type="checkbox" name="selectedSkills" value=@skill.Value />
+            <label>@skill.Text</label>
         }
         <a asp-controller="Skill" asp-action="Add">Submit a NEW Skill</a>
 

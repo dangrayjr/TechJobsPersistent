@@ -39,7 +39,7 @@ namespace TechJobsPersistent.ViewModels
 
             foreach (var skill in skills)
             {
-                Employers.Add(new SelectListItem
+                Skills.Add(new SelectListItem
                 {
                     Value = skill.Id.ToString(),
                     Text = skill.Name
