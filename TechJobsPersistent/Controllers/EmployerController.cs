@@ -40,28 +40,18 @@ namespace TechJobsPersistent.Controllers
         {
             if (ModelState.IsValid)
             {
-                string name = addEmployerViewModel.Name;
-                string location = addEmployerViewModel.Location;
-
-                List<Employer> existingItems =
-                    context.Employers
-                    .Where(e => e.Name == name)
-                    .Where(e => e.Location == location)
-                    .ToList();
-
-                if (existingItems.Count == 0)
-                {
+               
                     Employer newEmployer = new Employer
                     {
-                        Name = name,
-                        Location = location,
+                        Name = addEmployerViewModel.Name,
+                        Location = addEmployerViewModel.Location,
                     };
 
                     context.Employers.Add(newEmployer);
                     context.SaveChanges();
 
                     return Redirect("/Add");
-                }
+                
                 
                 
             }
